@@ -1,0 +1,68 @@
+services:
+  - type: web
+    name: telegram-bot-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: TELEGRAM_API_ID
+        sync: false
+      - key: TELEGRAM_API_HASH
+        sync: false
+      - key: PORT
+        value: 8081
+```
+
+5. اضغط **"Commit changes..."**
+6. اضغط **"Commit changes"**
+
+✅ **الآن GitHub جاهز!**
+
+---
+
+### **المرحلة 5️⃣: الحصول على API_ID و API_HASH**
+
+1. افتح: https://my.telegram.org
+2. سجّل دخول برقم هاتفك
+3. اضغط **"API development tools"**
+4. املأ الاستمارة:
+   - **App title:** أي اسم (مثل: My Bot)
+   - **Short name:** نفس الشيء
+   - **Platform:** Other
+5. اضغط **"Create application"**
+6. **احفظ** هذين الرقمين (راح نحتاجهم):
+   - `api_id` (رقم مثل: 12345678)
+   - `api_hash` (نص طويل مثل: abc123def456...)
+
+---
+
+### **المرحلة 6️⃣: نشر على Render**
+
+1. افتح: https://render.com
+2. اضغط **"Get Started"**
+3. سجّل دخول باستخدام حساب **GitHub** (اختر Sign in with GitHub)
+4. اسمح لـ Render بالوصول لحسابك
+5. بعد تسجيل الدخول، اضغط **"New +"** في الأعلى
+6. اختر **"Web Service"**
+7. اختر الـ Repository: `telegram-bot-api-server`
+8. راح يفتح صفحة الإعدادات:
+   - **Name:** اتركه كما هو
+   - **Region:** اختر أقرب منطقة (مثل Frankfurt)
+   - **Branch:** main
+   - **Runtime:** Docker
+9. انزل للأسفل للقسم **"Environment Variables"**
+10. اضغط **"Add Environment Variable"** مرتين وأضف:
+    - **Key:** `TELEGRAM_API_ID` → **Value:** (الرقم من my.telegram.org)
+    - **Key:** `TELEGRAM_API_HASH` → **Value:** (النص الطويل من my.telegram.org)
+11. اضغط **"Create Web Service"**
+
+⏳ **انتظر 10-20 دقيقة** (البناء يأخذ وقت)
+
+---
+
+### **المرحلة 7️⃣: نسخ رابط السيرفر**
+
+1. بعد ما يخلص البناء، راح تشوف في الأعلى:
+```
+   https://telegram-bot-api-xyz.onrender.com
